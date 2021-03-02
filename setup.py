@@ -18,7 +18,7 @@ from setuptools import setup
 setup(
     name='Flask-Session',
     version='0.3.3',
-    url='https://github.com/fengsp/flask-session',
+    url='https://github.com/Akurata/flask-session',
     license='BSD',
     author='Shipeng Feng',
     author_email='fsp261@gmail.com',
