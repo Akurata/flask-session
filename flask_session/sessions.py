@@ -160,8 +160,8 @@ class RedisSessionInterface(SessionInterface):
 
         httponly = self.get_cookie_httponly(app)
         secure = self.get_cookie_secure(app)
-        expires = self.get_expiration_time(app, session)
         samesite = self.get_cookie_samesite(app)
+        expires = self.get_expiration_time(app, session)
         val = self.serializer.dumps(dict(session))
         self.redis.setex(name=self.key_prefix + session.sid, value=val,
                          time=total_seconds(app.permanent_session_lifetime))
@@ -295,7 +295,8 @@ class MemcachedSessionInterface(SessionInterface):
 
 
 class FileSystemSessionInterface(SessionInterface):
-    """Uses the :class:`cachelib.file.FileSystemCache` as a session backend.
+    """Uses the :class:`werkzeug.contrib.cache.FileSystemCache` as a session
+    backend.
 
     .. versionadded:: 0.2
         The `use_signer` parameter was added.
@@ -313,7 +314,7 @@ class FileSystemSessionInterface(SessionInterface):
 
     def __init__(self, cache_dir, threshold, mode, key_prefix,
                  use_signer=False, permanent=True):
-        from cachelib.file import FileSystemCache
+        from werkzeug.contrib.cache import FileSystemCache
         self.cache = FileSystemCache(cache_dir, threshold=threshold, mode=mode)
         self.key_prefix = key_prefix
         self.use_signer = use_signer
